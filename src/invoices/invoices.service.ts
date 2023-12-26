@@ -17,7 +17,7 @@ export class InvoicesService {
     return await this.invoicesRepository.save(invoice);
   }
 
-  async findAll() {
+  findAll() {
     return this.invoicesRepository.find();
   }
 
@@ -30,6 +30,6 @@ export class InvoicesService {
   }
 
   async remove(id: number) {
-    return await this.invoicesRepository.softDelete(id);
+    return await this.invoicesRepository.delete(id);
   }
 }

@@ -1,16 +1,18 @@
-import { IsDateString, IsDecimal, IsNumber, IsString } from 'class-validator';
+import { IsDateString, IsNumber, IsPositive } from 'class-validator';
 
 export class CreateInvoiceDto {
-  @IsString()
-  sellerName: string;
+  @IsNumber()
+  @IsPositive()
+  sellerid: number;
 
-  @IsString()
-  costumerName: string;
+  @IsNumber()
+  @IsPositive()
+  costumerid: number;
 
   @IsDateString({ strict: true } as any)
   date: Date;
 
-  // @IsDecimal()
   @IsNumber()
+  @IsPositive()
   total: number;
 }

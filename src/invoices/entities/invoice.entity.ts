@@ -1,8 +1,10 @@
+import { InvoicesDetail } from 'src/invoices-details/entities/invoices-detail.entity';
 import { DecimalColumnTransformer } from 'src/utils/columnNumericTransformer';
 import {
   Column,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -12,10 +14,10 @@ export class Invoice {
   id: number;
 
   @Column()
-  sellerName: string;
+  sellerid: number;
 
   @Column()
-  costumerName: string;
+  customerid: number;
 
   @Column()
   date: Date;
@@ -28,6 +30,9 @@ export class Invoice {
     transformer: new DecimalColumnTransformer(),
   })
   total: number;
+
+  @OneToMany(() => InvoicesDetail, (invoiceDetail) => invoiceDetail.invoice)
+  invoiceDetails: InvoicesDetail[];
 
   @DeleteDateColumn()
   deletedAt: Date;
