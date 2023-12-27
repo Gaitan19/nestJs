@@ -1,9 +1,12 @@
+import { Customer } from './../../customers/entities/customer.entity';
 import { InvoiceDetail } from 'src/invoice-details/entities/invoice-detail.entity';
+import { Seller } from 'src/sellers/entities/seller.entity';
 import { DecimalColumnTransformer } from 'src/utils/columnNumericTransformer';
 import {
   Column,
   DeleteDateColumn,
   Entity,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -13,11 +16,11 @@ export class Invoice {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  sellerid: number;
+  // @Column()
+  // sellerid: number;
 
-  @Column()
-  customerid: number;
+  // @Column()
+  // customerid: number;
 
   @Column()
   date: Date;
@@ -30,6 +33,12 @@ export class Invoice {
     transformer: new DecimalColumnTransformer(),
   })
   total: number;
+
+  @ManyToOne(() => Seller, (seller) => seller.invoice)
+  seller: Seller;
+
+  @ManyToOne(() => Customer, (customer) => customer.invoice)
+  customer: Customer;
 
   @OneToMany(() => InvoiceDetail, (invoiceDetail) => invoiceDetail.invoice)
   invoiceDetails: InvoiceDetail[];

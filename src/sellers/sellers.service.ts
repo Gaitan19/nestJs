@@ -10,7 +10,7 @@ export class SellersService {
   constructor(
     @InjectRepository(Seller)
     private sellersRepository: Repository<Seller>,
-  ) { }
+  ) {}
 
   async create(CreateSellerDto: CreateSellerDto) {
     const seller = this.sellersRepository.create(CreateSellerDto);

@@ -23,9 +23,17 @@ export class InvoiceDetailsService {
   async create(createInvoiceDetailDto: CreateInvoiceDetailDto) {
     const { invoiceId, productid, ...validDto } = createInvoiceDetailDto;
 
-    const invoice = await this.invoicesRepository.findOneBy({ id: invoiceId });
+    const invoice = await this.invoicesRepository.findOne({
+      where: { id: invoiceId },
+      relations: {
+        seller: true,
+        customer: true,
+      },
+    });
 
-    const product = await this.productsRepository.findOneBy({ id: productid });
+    const product = await this.productsRepository.findOne({
+      where: { id: productid },
+    });
 
     if (!invoice) {
       throw new BadRequestException('Invoice not found');
@@ -89,7 +97,7 @@ export class InvoiceDetailsService {
       });
 
       if (!product) {
-        throw new BadRequestException('Invoice not found');
+        throw new BadRequestException('Product not found');
       }
     }
 

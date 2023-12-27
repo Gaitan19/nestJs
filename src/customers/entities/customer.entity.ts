@@ -1,8 +1,10 @@
+import { Invoice } from 'src/invoices/entities/invoice.entity';
 import { DecimalColumnTransformer } from 'src/utils/columnNumericTransformer';
 import {
   Column,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -25,4 +27,7 @@ export class Customer {
 
   @DeleteDateColumn()
   deletedAt: Date;
+
+  @OneToMany(() => Invoice, (invoice) => invoice.customer)
+  invoice: Invoice[];
 }
