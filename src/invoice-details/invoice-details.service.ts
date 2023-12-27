@@ -53,20 +53,14 @@ export class InvoiceDetailsService {
 
   findAll() {
     return this.invoiceDetailsRepository.find({
-      relations: {
-        product: true,
-        invoice: true,
-      },
+      relations: ['product', 'invoice', 'invoice.seller', 'invoice.customer'],
     });
   }
 
   findOne(id: number) {
     return this.invoiceDetailsRepository.findOne({
       where: { id: id },
-      relations: {
-        product: true,
-        invoice: true,
-      },
+      relations: ['product', 'invoice', 'invoice.seller', 'invoice.customer'],
     });
   }
 
