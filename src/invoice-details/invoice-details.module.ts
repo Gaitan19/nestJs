@@ -5,10 +5,16 @@ import { InvoicesModule } from 'src/invoices/invoices.module';
 import { InvoiceDetail } from './entities/invoice-detail.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { InvoicesService } from 'src/invoices/invoices.service';
+import { ProductsModule } from 'src/products/products.module';
+import { ProductsService } from 'src/products/products.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([InvoiceDetail]), InvoicesModule],
+  imports: [
+    TypeOrmModule.forFeature([InvoiceDetail]),
+    InvoicesModule,
+    ProductsModule,
+  ],
   controllers: [InvoiceDetailsController],
-  providers: [InvoiceDetailsService, InvoicesService],
+  providers: [InvoiceDetailsService, InvoicesService, ProductsService],
 })
-export class InvoiceDetailsModule { }
+export class InvoiceDetailsModule {}

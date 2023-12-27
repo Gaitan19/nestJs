@@ -5,6 +5,7 @@ import { InvoiceDetail } from './entities/invoice-detail.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Invoice } from 'src/invoices/entities/invoice.entity';
 import { Repository } from 'typeorm';
+import { Product } from 'src/products/entities/product.entity';
 
 @Injectable()
 export class InvoiceDetailsService {
@@ -14,19 +15,29 @@ export class InvoiceDetailsService {
 
     @InjectRepository(Invoice)
     private invoicesRepository: Repository<Invoice>,
-  ) { }
+
+    @InjectRepository(Product)
+    private productsRepository: Repository<Product>,
+  ) {}
 
   async create(createInvoiceDetailDto: CreateInvoiceDetailDto) {
-    const { invoiceId, ...validDto } = createInvoiceDetailDto;
+    const { invoiceId, productid, ...validDto } = createInvoiceDetailDto;
 
     const invoice = await this.invoicesRepository.findOneBy({ id: invoiceId });
+
+    const product = await this.productsRepository.findOneBy({ id: productid });
 
     if (!invoice) {
       throw new BadRequestException('Invoice not found');
     }
 
+    if (!product) {
+      throw new BadRequestException('Invoice not found');
+    }
+
     const invoiceDetail = this.invoiceDetailsRepository.create({
       ...validDto,
+      product,
       invoice,
     });
     return await this.invoiceDetailsRepository.save(invoiceDetail);
@@ -35,6 +46,7 @@ export class InvoiceDetailsService {
   findAll() {
     return this.invoiceDetailsRepository.find({
       relations: {
+        product: true,
         invoice: true,
       },
     });
@@ -44,13 +56,14 @@ export class InvoiceDetailsService {
     return this.invoiceDetailsRepository.findOne({
       where: { id: id },
       relations: {
+        product: true,
         invoice: true,
       },
     });
   }
 
   async update(id: number, updateInvoiceDetailDto: UpdateInvoiceDetailDto) {
-    const { invoiceId, ...validDto } = updateInvoiceDetailDto;
+    const { invoiceId, productid, ...validDto } = updateInvoiceDetailDto;
 
     const invoiceDetail = await this.invoiceDetailsRepository.findOneBy({ id });
 
@@ -69,9 +82,21 @@ export class InvoiceDetailsService {
       }
     }
 
+    let product;
+    if (productid) {
+      product = await this.invoicesRepository.findOneBy({
+        id: productid,
+      });
+
+      if (!product) {
+        throw new BadRequestException('Invoice not found');
+      }
+    }
+
     return await this.invoiceDetailsRepository.save({
       ...invoiceDetail,
       ...validDto,
+      product,
       invoice,
     });
   }
