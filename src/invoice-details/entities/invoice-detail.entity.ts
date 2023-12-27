@@ -8,9 +8,6 @@ export class InvoiceDetail {
   @PrimaryGeneratedColumn()
   id: number;
 
-  // @Column()
-  // productid: number;
-
   @Column()
   quantity: number;
 

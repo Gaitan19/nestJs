@@ -35,7 +35,6 @@ export class InvoicesService {
       throw new BadRequestException('Customer not found');
     }
 
-    // const invoice = this.invoicesRepository.create(createInvoiceDto);
     const invoice = this.invoicesRepository.create({
       ...validDto,
       seller,
@@ -97,7 +96,6 @@ export class InvoicesService {
       seller,
       customer,
     });
-    // return await this.invoicesRepository.update(id, updateInvoiceDto);
   }
 
   async remove(id: number) {

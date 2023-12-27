@@ -16,12 +16,6 @@ export class Invoice {
   @PrimaryGeneratedColumn()
   id: number;
 
-  // @Column()
-  // sellerid: number;
-
-  // @Column()
-  // customerid: number;
-
   @Column()
   date: Date;
 
