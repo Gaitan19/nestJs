@@ -5,14 +5,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { InvoicesModule } from './invoices/invoices.module';
 import { ProductsModule } from './products/products.module';
 import { CustomersModule } from './customers/customers.module';
-import { InvoicesDetailsModule } from './invoices-details/invoices-details.module';
+import { InvoiceDetailsModule } from './invoice-details/invoice-details.module';
+import { SellersModule } from './sellers/sellers.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
-      port: 3306,
+      port: 3307,
       username: 'root',
       password: 'admin',
       database: 'nestdb',
@@ -22,9 +23,10 @@ import { InvoicesDetailsModule } from './invoices-details/invoices-details.modul
     ProductsModule,
     InvoicesModule,
     CustomersModule,
-    InvoicesDetailsModule,
+    InvoiceDetailsModule,
+    SellersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

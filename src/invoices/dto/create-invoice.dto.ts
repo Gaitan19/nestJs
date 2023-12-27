@@ -7,7 +7,7 @@ export class CreateInvoiceDto {
 
   @IsNumber()
   @IsPositive()
-  costumerid: number;
+  customerid: number;
 
   @IsDateString({ strict: true } as any)
   date: Date;

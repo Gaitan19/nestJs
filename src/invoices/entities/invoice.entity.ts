@@ -1,4 +1,4 @@
-import { InvoicesDetail } from 'src/invoices-details/entities/invoices-detail.entity';
+import { InvoiceDetail } from 'src/invoice-details/entities/invoice-detail.entity';
 import { DecimalColumnTransformer } from 'src/utils/columnNumericTransformer';
 import {
   Column,
@@ -31,8 +31,8 @@ export class Invoice {
   })
   total: number;
 
-  @OneToMany(() => InvoicesDetail, (invoiceDetail) => invoiceDetail.invoice)
-  invoiceDetails: InvoicesDetail[];
+  @OneToMany(() => InvoiceDetail, (invoiceDetail) => invoiceDetail.invoice)
+  invoiceDetails: InvoiceDetail[];
 
   @DeleteDateColumn()
   deletedAt: Date;

@@ -1,22 +1,22 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { CreateInvoicesDetailDto } from './dto/create-invoices-detail.dto';
-import { UpdateInvoicesDetailDto } from './dto/update-invoices-detail.dto';
-import { InvoicesDetail } from './entities/invoices-detail.entity';
+import { CreateInvoiceDetailDto } from './dto/create-invoice-detail.dto';
+import { UpdateInvoiceDetailDto } from './dto/update-invoice-detail.dto';
+import { InvoiceDetail } from './entities/invoice-detail.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Invoice } from 'src/invoices/entities/invoice.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class InvoicesDetailsService {
+export class InvoiceDetailsService {
   constructor(
-    @InjectRepository(InvoicesDetail)
-    private invoiceDetailsRepository: Repository<InvoicesDetail>,
+    @InjectRepository(InvoiceDetail)
+    private invoiceDetailsRepository: Repository<InvoiceDetail>,
 
     @InjectRepository(Invoice)
     private invoicesRepository: Repository<Invoice>,
-  ) {}
+  ) { }
 
-  async create(createInvoiceDetailDto: CreateInvoicesDetailDto) {
+  async create(createInvoiceDetailDto: CreateInvoiceDetailDto) {
     const { invoiceId, ...validDto } = createInvoiceDetailDto;
 
     const invoice = await this.invoicesRepository.findOneBy({ id: invoiceId });
@@ -49,7 +49,7 @@ export class InvoicesDetailsService {
     });
   }
 
-  async update(id: number, updateInvoiceDetailDto: UpdateInvoicesDetailDto) {
+  async update(id: number, updateInvoiceDetailDto: UpdateInvoiceDetailDto) {
     const { invoiceId, ...validDto } = updateInvoiceDetailDto;
 
     const invoiceDetail = await this.invoiceDetailsRepository.findOneBy({ id });
