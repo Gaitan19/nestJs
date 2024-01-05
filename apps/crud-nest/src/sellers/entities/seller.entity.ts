@@ -1,4 +1,3 @@
-import { Invoice } from 'src/invoices/entities/invoice.entity';
 import {
   Column,
   DeleteDateColumn,
@@ -6,6 +5,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Invoice } from '../../invoices/entities/invoice.entity';
 
 @Entity()
 export class Seller {

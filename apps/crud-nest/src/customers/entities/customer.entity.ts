@@ -1,5 +1,3 @@
-import { Invoice } from 'src/invoices/entities/invoice.entity';
-import { DecimalColumnTransformer } from 'src/utils/columnNumericTransformer';
 import {
   Column,
   DeleteDateColumn,
@@ -7,6 +5,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Invoice } from '../../invoices/entities/invoice.entity';
 
 @Entity()
 export class Customer {

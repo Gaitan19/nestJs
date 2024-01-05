@@ -4,8 +4,8 @@ import { UpdateInvoiceDto } from './dto/update-invoice.dto';
 import { Invoice } from './entities/invoice.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Seller } from 'src/sellers/entities/seller.entity';
-import { Customer } from 'src/customers/entities/customer.entity';
+import { Seller } from '../sellers/entities/seller.entity';
+import { Customer } from '../customers/entities/customer.entity';
 
 @Injectable()
 export class InvoicesService {
@@ -16,7 +16,7 @@ export class InvoicesService {
     private sellersRepository: Repository<Seller>,
     @InjectRepository(Customer)
     private customersRepository: Repository<Customer>,
-  ) {}
+  ) { }
 
   async create(createInvoiceDto: CreateInvoiceDto) {
     const { sellerid, customerid, ...validDto } = createInvoiceDto;

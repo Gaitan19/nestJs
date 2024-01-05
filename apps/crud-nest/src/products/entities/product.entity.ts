@@ -1,5 +1,3 @@
-import { InvoiceDetail } from 'src/invoice-details/entities/invoice-detail.entity';
-import { DecimalColumnTransformer } from 'src/utils/columnNumericTransformer';
 import {
   Column,
   DeleteDateColumn,
@@ -7,6 +5,8 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { DecimalColumnTransformer } from '../../utils/columnNumericTransformer';
+import { InvoiceDetail } from '../../invoice-details/entities/invoice-detail.entity';
 
 @Entity()
 export class Product {

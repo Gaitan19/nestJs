@@ -1,7 +1,7 @@
+import { InvoiceDetail } from '../../invoice-details/entities/invoice-detail.entity';
+import { Seller } from '../../sellers/entities/seller.entity';
+import { DecimalColumnTransformer } from '../../utils/columnNumericTransformer';
 import { Customer } from './../../customers/entities/customer.entity';
-import { InvoiceDetail } from 'src/invoice-details/entities/invoice-detail.entity';
-import { Seller } from 'src/sellers/entities/seller.entity';
-import { DecimalColumnTransformer } from 'src/utils/columnNumericTransformer';
 import {
   Column,
   DeleteDateColumn,

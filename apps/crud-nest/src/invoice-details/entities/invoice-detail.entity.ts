@@ -1,7 +1,7 @@
-import { Invoice } from 'src/invoices/entities/invoice.entity';
-import { Product } from 'src/products/entities/product.entity';
-import { DecimalColumnTransformer } from 'src/utils/columnNumericTransformer';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { DecimalColumnTransformer } from '../../utils/columnNumericTransformer';
+import { Product } from '../../products/entities/product.entity';
+import { Invoice } from '../../invoices/entities/invoice.entity';
 
 @Entity()
 export class InvoiceDetail {

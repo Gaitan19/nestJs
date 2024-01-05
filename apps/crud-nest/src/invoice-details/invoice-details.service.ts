@@ -3,9 +3,9 @@ import { CreateInvoiceDetailDto } from './dto/create-invoice-detail.dto';
 import { UpdateInvoiceDetailDto } from './dto/update-invoice-detail.dto';
 import { InvoiceDetail } from './entities/invoice-detail.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Invoice } from 'src/invoices/entities/invoice.entity';
 import { Repository } from 'typeorm';
-import { Product } from 'src/products/entities/product.entity';
+import { Invoice } from '../invoices/entities/invoice.entity';
+import { Product } from '../products/entities/product.entity';
 
 @Injectable()
 export class InvoiceDetailsService {
@@ -18,7 +18,7 @@ export class InvoiceDetailsService {
 
     @InjectRepository(Product)
     private productsRepository: Repository<Product>,
-  ) {}
+  ) { }
 
   async create(createInvoiceDetailDto: CreateInvoiceDetailDto) {
     const { invoiceId, productid, ...validDto } = createInvoiceDetailDto;

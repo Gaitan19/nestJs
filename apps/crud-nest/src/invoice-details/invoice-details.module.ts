@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common';
 import { InvoiceDetailsService } from './invoice-details.service';
 import { InvoiceDetailsController } from './invoice-details.controller';
-import { InvoicesModule } from 'src/invoices/invoices.module';
 import { InvoiceDetail } from './entities/invoice-detail.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { InvoicesService } from 'src/invoices/invoices.service';
-import { ProductsModule } from 'src/products/products.module';
-import { ProductsService } from 'src/products/products.service';
-import { SellersModule } from 'src/sellers/sellers.module';
-import { SellersService } from 'src/sellers/sellers.service';
-import { CustomersModule } from 'src/customers/customers.module';
-import { CustomersService } from 'src/customers/customers.service';
+import { InvoicesModule } from '../invoices/invoices.module';
+import { ProductsModule } from '../products/products.module';
+import { SellersModule } from '../sellers/sellers.module';
+import { CustomersModule } from '../customers/customers.module';
+import { InvoicesService } from '../invoices/invoices.service';
+import { ProductsService } from '../products/products.service';
+import { SellersService } from '../sellers/sellers.service';
+import { CustomersService } from '../customers/customers.service';
 
 @Module({
   imports: [
@@ -29,4 +29,4 @@ import { CustomersService } from 'src/customers/customers.service';
     CustomersService,
   ],
 })
-export class InvoiceDetailsModule {}
+export class InvoiceDetailsModule { }

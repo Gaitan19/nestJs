@@ -7,13 +7,14 @@ import { ProductsModule } from './products/products.module';
 import { CustomersModule } from './customers/customers.module';
 import { InvoiceDetailsModule } from './invoice-details/invoice-details.module';
 import { SellersModule } from './sellers/sellers.module';
+import { EmailsModule } from './emails/emails.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
-      port: 3306,
+      port: 3307,
       username: 'root',
       password: 'admin',
       database: 'nestdb',
@@ -25,6 +26,7 @@ import { SellersModule } from './sellers/sellers.module';
     CustomersModule,
     InvoiceDetailsModule,
     SellersModule,
+    EmailsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
