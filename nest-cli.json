@@ -1,8 +1,32 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src",
+  "sourceRoot": "apps/crud-nest/src",
   "compilerOptions": {
-    "deleteOutDir": true
+    "deleteOutDir": true,
+    "webpack": true,
+    "tsConfigPath": "apps/crud-nest/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/crud-nest",
+  "projects": {
+    "crud-nest": {
+      "type": "application",
+      "root": "apps/crud-nest",
+      "entryFile": "main",
+      "sourceRoot": "apps/crud-nest/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/crud-nest/tsconfig.app.json"
+      }
+    },
+    "mailservice": {
+      "type": "application",
+      "root": "apps/mailservice",
+      "entryFile": "main",
+      "sourceRoot": "apps/mailservice/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/mailservice/tsconfig.app.json"
+      }
+    }
   }
 }
