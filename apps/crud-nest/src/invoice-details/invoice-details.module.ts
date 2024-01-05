@@ -11,10 +11,14 @@ import { InvoicesService } from '../invoices/invoices.service';
 import { ProductsService } from '../products/products.service';
 import { SellersService } from '../sellers/sellers.service';
 import { CustomersService } from '../customers/customers.service';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([InvoiceDetail]),
+    ClientsModule.register([
+      { name: 'MAIL_SERVICE', transport: Transport.TCP },
+    ]),
     InvoicesModule,
     ProductsModule,
     SellersModule,

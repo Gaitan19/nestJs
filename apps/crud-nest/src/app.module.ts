@@ -8,6 +8,7 @@ import { CustomersModule } from './customers/customers.module';
 import { InvoiceDetailsModule } from './invoice-details/invoice-details.module';
 import { SellersModule } from './sellers/sellers.module';
 import { EmailsModule } from './emails/emails.module';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
@@ -21,6 +22,9 @@ import { EmailsModule } from './emails/emails.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    ClientsModule.register([
+      { name: 'MAIL_SERVICE', transport: Transport.TCP },
+    ]),
     ProductsModule,
     InvoicesModule,
     CustomersModule,
