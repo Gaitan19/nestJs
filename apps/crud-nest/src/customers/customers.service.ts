@@ -18,8 +18,8 @@ export class CustomersService {
   async create(createCustomerDto: CreateCustomerDto) {
     const customer = this.customersRepository.create(createCustomerDto);
     const emitResponse = this.client.emit<{ type: string; data: BaseEntity }>('new_created', {
-      type: 'customer', // Indica el tipo de entidad
-      data: customer, // Pasa la entidad como objeto JSON
+      type: 'customer',
+      data: customer,
     });
 
     console.log('emitResponse >>', emitResponse);
