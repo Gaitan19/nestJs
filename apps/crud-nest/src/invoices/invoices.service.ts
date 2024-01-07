@@ -1,17 +1,19 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { UpdateInvoiceDto } from './dto/update-invoice.dto';
 import { Invoice } from './entities/invoice.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { BaseEntity, Repository } from 'typeorm';
 import { Seller } from '../sellers/entities/seller.entity';
 import { Customer } from '../customers/entities/customer.entity';
+import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class InvoicesService {
   constructor(
     @InjectRepository(Invoice)
     private invoicesRepository: Repository<Invoice>,
+    @Inject('MAIL_SERVICE') private client: ClientProxy,
     @InjectRepository(Seller)
     private sellersRepository: Repository<Seller>,
     @InjectRepository(Customer)
@@ -39,6 +41,18 @@ export class InvoicesService {
       ...validDto,
       seller,
       customer,
+    });
+
+    const sendResponse = this.client.send<{ type: string; data: BaseEntity }>(
+      'new_created',
+      {
+        type: 'invoice',
+        data: invoice,
+      },
+    );
+
+    sendResponse.subscribe(async (response) => {
+      console.log('Respuesta del microservicio:', response);
     });
 
     return await this.invoicesRepository.save(invoice);

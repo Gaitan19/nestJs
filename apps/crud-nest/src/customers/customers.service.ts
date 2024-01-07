@@ -17,12 +17,15 @@ export class CustomersService {
 
   async create(createCustomerDto: CreateCustomerDto) {
     const customer = this.customersRepository.create(createCustomerDto);
-    const emitResponse = this.client.emit<{ type: string; data: BaseEntity }>('new_created', {
+    const sendResponse = this.client.send<{ type: string; data: BaseEntity }>('new_created', {
       type: 'customer',
       data: customer,
     });
 
-    console.log('emitResponse >>', emitResponse);
+    sendResponse.subscribe(async (response) => {
+      console.log('Respuesta del microservicio:', response);
+    });
+
     return await this.customersRepository.save(customer);
   }
 

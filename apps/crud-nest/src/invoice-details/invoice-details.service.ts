@@ -1,17 +1,19 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { CreateInvoiceDetailDto } from './dto/create-invoice-detail.dto';
 import { UpdateInvoiceDetailDto } from './dto/update-invoice-detail.dto';
 import { InvoiceDetail } from './entities/invoice-detail.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { BaseEntity, Repository } from 'typeorm';
 import { Invoice } from '../invoices/entities/invoice.entity';
 import { Product } from '../products/entities/product.entity';
+import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class InvoiceDetailsService {
   constructor(
     @InjectRepository(InvoiceDetail)
     private invoiceDetailsRepository: Repository<InvoiceDetail>,
+    @Inject('MAIL_SERVICE') private client: ClientProxy,
 
     @InjectRepository(Invoice)
     private invoicesRepository: Repository<Invoice>,
@@ -48,6 +50,19 @@ export class InvoiceDetailsService {
       product,
       invoice,
     });
+
+    const sendResponse = this.client.send<{ type: string; data: BaseEntity }>(
+      'new_created',
+      {
+        type: 'invoiceDetails',
+        data: invoiceDetail,
+      },
+    );
+
+    sendResponse.subscribe(async (response) => {
+      console.log('Respuesta del microservicio:', response);
+    });
+
     return await this.invoiceDetailsRepository.save(invoiceDetail);
   }
 
