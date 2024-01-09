@@ -15,7 +15,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
-      port: 3307,
+      port: 3306,
       username: 'root',
       password: 'admin',
       database: 'nestdb',
@@ -35,4 +35,4 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

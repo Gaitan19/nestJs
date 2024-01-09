@@ -12,7 +12,7 @@ export class SellersService {
     @InjectRepository(Seller)
     private sellersRepository: Repository<Seller>,
     @Inject('MAIL_SERVICE') private client: ClientProxy,
-  ) { }
+  ) {}
 
   async create(CreateSellerDto: CreateSellerDto) {
     const seller = this.sellersRepository.create(CreateSellerDto);
